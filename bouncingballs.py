@@ -61,8 +61,9 @@ def main():
             if event.type == pygame.MOUSEBUTTONUP:
                 # create a ball
                 ball = pygame.Rect(mouse_pos[0], mouse_pos[1], BALL_SIZE, BALL_SIZE)
-                ball_prop_x = random.randrange(-7,7,1)
-                ball_prop_y = random.randrange(-7,7,2) 
+                # Add random elements to the velocity of the ball between -8 and +8
+                ball_prop_x = random.randrange(-8,8,1)
+                ball_prop_y = random.randrange(-8,8,1) 
                 balls.append([ball, ball_prop_x, ball_prop_y])
 
         ball_movement(balls)
