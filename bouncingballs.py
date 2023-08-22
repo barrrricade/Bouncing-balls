@@ -6,6 +6,7 @@ import random
 
 ## Constants
 # Ball object constants
+# Load ball and set ball config
 BALL_SIZE = 20
 ball_img = pygame.image.load('ball.png')
 BALL = pygame.transform.scale(ball_img, (BALL_SIZE, BALL_SIZE))
@@ -17,15 +18,17 @@ GRAY = (100,100,110)        # Background colour
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("First Game!")
 
-# Updates and creates movements for balls
+# Updates and creates movements for balls, updates velocity on collision
 def ball_movement(balls):
     for i, (ball, ball_prop_x, ball_prop_y) in enumerate(balls):
+        # Change X direction on wall collision
         if ball.x <= 0 or ball.x >= WIDTH - BALL_SIZE: 
             ball.x -= ball_prop_x 
             balls[i][1] = -ball_prop_x 
         else:
             ball.x += ball_prop_x 
-
+        
+        # Change Y direction on wall collision
         if ball.y <= 0 or ball.y >= HEIGHT - BALL_SIZE: 
             ball.y -= ball_prop_y
             balls[i][2] = -ball_prop_y 
@@ -40,6 +43,7 @@ def draw_window(balls):
 
     pygame.display.update()
 
+# MAIN LOOP START HERE
 def main():
     # Variable declarations
     run = True
@@ -48,11 +52,10 @@ def main():
 
     while run:
         clock.tick(FPS)
-        #QUIT condition
+        # Main loop
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
-    
+            if event.type == pygame.QUIT: run = False
+        
             # Get position of mouse and register click
             mouse_pos = pygame.mouse.get_pos()
             if event.type == pygame.MOUSEBUTTONUP:
